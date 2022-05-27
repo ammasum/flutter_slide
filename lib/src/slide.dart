@@ -32,18 +32,17 @@ class FlutterSlide extends StatefulWidget {
   ///Make it false if you want maintain the widget in the tree.
   final bool dismissible;
 
-  final bool vibrationFlag;
-
-  ///The offset threshold the item has to be dragged in order to be considered
-  ///dismissed e.g. if it is 0.4, then the item has to be dragged
-  /// at least 40% towards one direction to be considered dismissed
+  // area to slide for dissmiss. If dismissThresholds is .7 then it has to slide 70% of the area
   final double dismissThresholds;
 
+  // disble mode for slider
   final bool disable;
 
+  // decoration for slider box
   final BoxDecoration? decoration;
   final BoxDecoration? disabledDecoration;
 
+  // decoration for slider button
   final BoxDecoration? buttonDecoration;
   final BoxDecoration? disabledButtonDecoration;
 
@@ -52,7 +51,6 @@ class FlutterSlide extends StatefulWidget {
       required this.action,
       required this.child,
       this.radius = 100,
-      this.vibrationFlag = false,
       this.shimmer = true,
       this.height = 70,
       this.buttonSize,
