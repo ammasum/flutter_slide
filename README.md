@@ -11,27 +11,44 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-Create Slide action in flutter.
+Create Slide action in flutter. It's highly customizable
 
-<!-- ## Features
+## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Create customizable slide button
 
-## Getting started
+<!-- ## Getting started
 
 TODO: List prerequisites and provide or point to information on how to
-start using the package.
+start using the package. -->
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+FlutterSlide(
+    height: 60,
+    buttonSize: 50,
+    shimmer: false,
+    width: double.infinity,
+    action: () {},
+    baseColor: Colors.white,
+    backgroundColor: Colors.black,
+    label: const Text(
+    "Slide to Done",
+    style: TextStyle(
+        color: Color.fromARGB(255, 255, 255, 255),
+        fontWeight: FontWeight.w500,
+        fontSize: 20),
+    ),
+    child: const Icon( 
+        Icons.arrow_forward_ios,
+        size: 50,
+        color: Colors.white,
+    ),
+)
 ```
 
-## Additional information
+<!-- ## Additional information
 
 TODO: Tell users more about the package: where to find more information, how to 
 contribute to the package, how to file issues, what response they can expect 
