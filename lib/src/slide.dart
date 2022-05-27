@@ -3,7 +3,7 @@ import 'package:shimmer/shimmer.dart';
 
 class FlutterSlide extends StatefulWidget {
   ///To make button more customizable add your child widget
-  final Widget? child;
+  final Widget child;
 
   ///Sets the radius of corners of a button.
   final double radius;
@@ -24,8 +24,6 @@ class FlutterSlide extends StatefulWidget {
 
   ///Gives a alignment to a slider icon.
   final Alignment alignLabel;
-  final BoxShadow? boxShadow;
-  final Widget? icon;
   final Function action;
 
   ///Make it false if you want to deactivate the shimmer effect.
@@ -44,15 +42,16 @@ class FlutterSlide extends StatefulWidget {
   final bool disable;
 
   final BoxDecoration? decoration;
+  final BoxDecoration? disabledDecoration;
 
   final BoxDecoration? buttonDecoration;
+  final BoxDecoration? disabledButtonDecoration;
 
   const FlutterSlide(
       {Key? key,
       required this.action,
+      required this.child,
       this.radius = 100,
-      this.boxShadow,
-      this.child,
       this.vibrationFlag = false,
       this.shimmer = true,
       this.height = 70,
@@ -64,11 +63,12 @@ class FlutterSlide extends StatefulWidget {
       this.buttonColor = Colors.white,
       this.highlightedColor = const Color.fromARGB(255, 79, 76, 76),
       this.label,
-      this.icon,
       this.dismissible = true,
       this.dismissThresholds = 0.75,
       this.disable = false,
       this.decoration,
+      this.disabledDecoration,
+      this.disabledButtonDecoration,
       this.buttonDecoration})
       : assert((buttonSize ?? 60) <= (height)),
         super(key: key);
@@ -127,29 +127,23 @@ class _FlutterSlideState extends State<FlutterSlide> {
                     verticalOffset: 50,
                     message: 'Button is disabled',
                     child: Container(
-                      width: (widget.width) - (widget.height),
-                      height: (widget.height - 70),
+                      width: widget.width,
+                      height: widget.height,
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(
                         left: (widget.height -
                                 (widget.buttonSize ?? widget.height * 0.9)) /
                             2,
                       ),
-                      child: widget.child ??
-                          Container(
-                            height: widget.buttonSize ?? widget.height,
-                            width: widget.buttonSize ?? widget.height,
-                            decoration: BoxDecoration(
-                                boxShadow: widget.boxShadow != null
-                                    ? [
-                                        widget.boxShadow!,
-                                      ]
-                                    : null,
-                                color: Colors.grey,
+                      child: Container(
+                        height: widget.buttonSize ?? widget.height,
+                        width: widget.buttonSize ?? widget.height,
+                        decoration: widget.disabledButtonDecoration ??
+                            BoxDecoration(
                                 borderRadius:
                                     BorderRadius.circular(widget.radius)),
-                            child: Center(child: widget.icon),
-                          ),
+                        child: Center(child: widget.child),
+                      ),
                     ),
                   )
                 : Dismissible(
@@ -172,7 +166,7 @@ class _FlutterSlideState extends State<FlutterSlide> {
                       widget.action();
                     },
                     child: Container(
-                      width: widget.width - widget.height,
+                      width: widget.width,
                       height: widget.height,
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(
@@ -182,13 +176,12 @@ class _FlutterSlideState extends State<FlutterSlide> {
                                     : widget.buttonSize!)) /
                             2,
                       ),
-                      child: widget.child ??
-                          Container(
-                            height: widget.buttonSize ?? widget.height,
-                            width: widget.buttonSize ?? widget.height,
-                            decoration: widget.buttonDecoration,
-                            child: Center(child: widget.icon),
-                          ),
+                      child: Container(
+                        height: widget.buttonSize,
+                        width: widget.buttonSize,
+                        decoration: widget.buttonDecoration,
+                        child: widget.child,
+                      ),
                     ),
                   ),
           ],
